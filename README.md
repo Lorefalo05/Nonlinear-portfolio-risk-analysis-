@@ -23,7 +23,7 @@ Where:
 ### Multi-Variable Taylor Expansion
 To assess portfolio stability under localized market shocks $\Delta S = [\Delta S_1, \Delta S_2]^T$, we construct a multi-variable Taylor series approximation around a specified reference state $S^* = (S_1^*, S_2^*)$:
 
-$$V(S^* + \Delta S) \approx V(S^*) + \nabla V(S^*)^T \Delta S + \frac{1}{2} \Delta S^T \mathcal{H}(S^*) \Delta S$$Delta S$$
+$$V(S^* + \Delta S) \approx V(S^*) + \nabla V(S^*)^T \Delta S + \frac{1}{2} \Delta S^T \mathcal{H}(S^*) \Delta S$$ta S$$
 
 #### First-Order Sensitivity (The Delta Gradient)
 The Gradient vector $\nabla V$ maps the local linear directional sensitivities:
