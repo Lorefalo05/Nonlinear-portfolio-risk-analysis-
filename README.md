@@ -98,7 +98,7 @@ PORTFOLIO RISK SURFACE ANALYSIS
   Linear approx:   $18,636.35  (error: 3.08)
   Quadratic approx:$18,640.40  (error: 0.98)
 ============================================================
-```  <-- QUI CI VANNO PER RICHIUDERE
+``` 
 
 ### Risk Visualizations
 ![Portfolio Risk Surface Visualizations](Visualization%20portfolio%20risk%20surface.png)
