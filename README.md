@@ -101,4 +101,4 @@ PORTFOLIO RISK SURFACE ANALYSIS
 ```  <-- QUI CI VANNO PER RICHIUDERE
 
 ### Risk Visualizations
-![Risk Surface Visualizations](Visualization portfolio risk surface.png)
+![Portfolio Risk Surface Visualizations](Visualization%20portfolio%20risk%20surface.png)
