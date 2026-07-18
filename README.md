@@ -84,7 +84,7 @@ def compute_hessian(s1, s2):
     h22 = -(k / 400) * np.sin(s1 / 20) * np.cos(s2 / 20)
     h12 = -(k / 400) * np.cos(s1 / 20) * np.sin(s2 / 20)
     return np.array([[h11, h12], [h12, h22]])
-
+---
 
 ##Execution & Sample Outputs
 git clone [https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git](https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git)
