@@ -84,3 +84,37 @@ def compute_hessian(s1, s2):
     h22 = -(k / 400) * np.sin(s1 / 20) * np.cos(s2 / 20)
     h12 = -(k / 400) * np.cos(s1 / 20) * np.sin(s2 / 20)
     return np.array([[h11, h12], [h12, h22]])
+
+
+##Execution & Sample Outputs
+git clone [https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git](https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git)
+cd Nonlinear-Portfolio-Risk-Surface
+pip install -r requirements.txt
+
+##Expected Terminal Output
+============================================================
+PORTFOLIO RISK SURFACE ANALYSIS
+============================================================
+
+Reference Point: (S₁, S₂) = (100, 100)
+Portfolio Value: V = $18,014.21
+
+--- FIRST-ORDER (Delta) ---
+∂V/∂S₁ = 100.3540  (delta to asset 1)
+∂V/∂S₂ = 80.6548   (delta to asset 2)
+Gradient magnitude: 128.7454
+Steepest ascent direction: (0.779, 0.626)
+
+--- SECOND-ORDER (Gamma) ---
+Hessian matrix:
+  [-0.0268  -0.0886]
+  [-0.0886  -0.0268]
+Eigenvalues: λ₁ = -0.1154, λ₂ = +0.0617
+Principal direction 1: (0.707, 0.707)
+
+--- APPROXIMATION TEST ---
+At (110, 95):
+  True value:      $18,639.42
+  Linear approx:   $18,636.35  (error: 3.08)
+  Quadratic approx:$18,640.40  (error: 0.98)
+============================================================
