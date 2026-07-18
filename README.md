@@ -11,29 +11,29 @@ By leveraging **First-Order (Delta)** and **Second-Order (Gamma)** sensitivities
 
 Real-world exotic portfolios rarely display linear sensitivity to underlying asset prices. When position values interact nonlinearly (due to cross-gamma effects, structural correlations, or correlation-dependent payoffs), a simple linear risk model fails. 
 
-This framework defines a portfolio value function $V(S_1, S_2)$ governed by linear position allocations combined with a high-frequency nonlinear interaction surface:
+This framework defines a portfolio value function V(S1, S2) governed by linear position allocations combined with a high-frequency nonlinear interaction surface:
 
 $$V(S_1, S_2) = w_1 S_1 + w_2 S_2 + k \sin\left(\frac{S_1}{20}\right)\cos\left(\frac{S_2}{20}\right)$$
 
 Where:
-* $w_1, w_2$ represent the nominal position sizes (linear exposures).
-* $k$ denotes the nonlinear interaction strength.
+* w1, w2 represent the nominal position sizes (linear exposures).
+* k denotes the nonlinear interaction strength.
 * The trigonometric arguments simulate periodic, non-monotonic mark-to-market fluctuations.
 
 ### Multi-Variable Taylor Expansion
-To assess portfolio stability under localized market shocks $\Delta S = [\Delta S_1, \Delta S_2]^T$, we construct a multi-variable Taylor series approximation around a specified reference state $S^* = (S_1^*, S_2^*)$:
+To assess portfolio stability under localized market shocks, we construct a multi-variable Taylor series approximation around a specified reference state S* = (S1*, S2*):
 
-$$V(S^* + \Delta S) \approx V(S^*) + \nabla V(S^*)^T \Delta S + \frac{1}{2} \Delta S^T \mathcal{H}(S^*) \Delta S$$ta S$$
+$$V(S^* + \Delta S) \approx V(S^*) + \nabla V(S^*)^T \Delta S + \frac{1}{2} \Delta S^T \mathcal{H}(S^*) \Delta S$$
 
 #### First-Order Sensitivity (The Delta Gradient)
-The Gradient vector $\nabla V$ maps the local linear directional sensitivities:
+The Gradient vector maps the local linear directional sensitivities:
 
 $$\nabla V(S_1, S_2) = \begin{bmatrix} \frac{\partial V}{\partial S_1} \\ \frac{\partial V}{\partial S_2} \end{bmatrix} = \begin{bmatrix} w_1 + \frac{k}{20}\cos\left(\frac{S_1}{20}\right)\cos\left(\frac{S_2}{20}\right) \\ w_2 - \frac{k}{20}\sin\left(\frac{S_1}{20}\right)\sin\left(\frac{S_2}{20}\right) \end{bmatrix}$$
 
-The magnitude $\Vert{}\nabla V\Vert{}$ and normalized direction vector define the path of maximum portfolio appreciation (and conversely, maximum short exposure).
+The magnitude and normalized direction vector define the path of maximum portfolio appreciation (and conversely, maximum short exposure).
 
 #### Second-Order Sensitivity (The Gamma Hessian)
-The Hessian matrix $\mathcal{H}$ captures the curvature (Gamma and Cross-Gamma risk) of the surface:
+The Hessian matrix captures the curvature (Gamma and Cross-Gamma risk) of the surface:
 
 $$\mathcal{H}(S_1, S_2) = \begin{bmatrix} \frac{\partial^2 V}{\partial S_1^2} & \frac{\partial^2 V}{\partial S_1 \partial S_2} \\ \frac{\partial^2 V}{\partial S_2 \partial S_1} & \frac{\partial^2 V}{\partial S_2^2} \end{bmatrix}$$
 
@@ -48,9 +48,9 @@ By executing an eigendecomposition on the symmetric Hessian matrix:
 
 $$\mathcal{H} = Q \Lambda Q^T$$
 
-We extract eigenvalues $\lambda_i$ and their corresponding orthogonal eigenvectors $v_i$. In a risk management context:
-* **Eigenvalues ($\lambda_i$)** quantify the magnitude of the portfolio's acceleration/deceleration under stress along specific market vectors. A negative eigenvalue implies a locally concave surface (short Gamma exposure), representing tail-risk under large shifts.
-* **Eigenvectors ($v_i$)** define the precise synthetic combinations of underlying asset movements that represent the *Principal Risk Axes*.
+We extract eigenvalues and their corresponding orthogonal eigenvectors. In a risk management context:
+* **Eigenvalues:** quantify the magnitude of the portfolio's acceleration/deceleration under stress along specific market vectors. A negative eigenvalue implies a locally concave surface (short Gamma exposure), representing tail-risk under large shifts.
+* **Eigenvectors:** define the precise synthetic combinations of underlying asset movements that represent the Principal Risk Axes.
 
 ---
 
@@ -64,30 +64,3 @@ We extract eigenvalues $\lambda_i$ and their corresponding orthogonal eigenvecto
 ---
 
 ## 3. Project Structure & Core Logic
-
-The mathematical architecture is decoupled into pure operational functions for stability and testing:
-
-```python
-def portfolio_value(s1, s2):
-    """Calculates mark-to-market portfolio value inclusive of nonlinear cross-effects."""
-    return w1 * s1 + w2 * s2 + k * np.sin(s1 / 20) * np.cos(s2 / 20)
-
-def compute_gradient(s1, s2):
-    """Returns the analytical Delta gradient vector."""
-    dV_dS1 = w1 + (k / 20) * np.cos(s1 / 20) * np.cos(s2 / 20)
-    dV_dS2 = w2 - (k / 20) * np.sin(s1 / 20) * np.sin(s2 / 20)
-    return np.array([dV_dS1, dV_dS2])
-
-def compute_hessian(s1, s2):
-    """Returns the symmetric analytical Gamma Hessian matrix."""
-    h11 = -(k / 400) * np.sin(s1 / 20) * np.cos(s2 / 20)
-    h22 = -(k / 400) * np.sin(s1 / 20) * np.cos(s2 / 20)
-    h12 = -(k / 400) * np.cos(s1 / 20) * np.sin(s2 / 20)
-    return np.array([[h11, h12], [h12, h22]])
-
-
-##4. Execution & Sample Outputs
-
-git clone [https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git](https://github.com/yourusername/Nonlinear-Portfolio-Risk-Surface.git)
-cd Nonlinear-Portfolio-Risk-Surface
-pip install -r requirements.txt
